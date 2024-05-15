@@ -22,14 +22,15 @@
                     @csrf
                     <div class="card-body d-flex flex-column gap-2">
                         <div>
-                            <label for="nip" class="col-form-label text-md-end fw-bold">{{ __('NIP') }}</label>
+                            <label for="email" class="col-form-label text-md-end fw-bold">{{ __('Email') }}</label>
 
                             <div class="">
-                                <input id="nip" type="nip" class="form-control @error('nip') is-invalid @enderror"
-                                    name="nip" value="{{ old('nip') }}" required placeholder="xxxxxxx"
-                                    autocomplete="off" autofocus>
+                                <input id="email" type="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email') }}" required placeholder="example@mail.com" autocomplete="off"
+                                    autofocus>
 
-                                @error('nip')
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

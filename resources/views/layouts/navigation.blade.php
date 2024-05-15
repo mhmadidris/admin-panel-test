@@ -7,7 +7,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('reimbursement.index', ['locale' => app()->getLocale()]) }}">
+        <a class="nav-link" href="">
             <i class="nav-icon fa-solid fa-money-bill-1-wave"></i>
             {{ __('Reimburs') }}
         </a>

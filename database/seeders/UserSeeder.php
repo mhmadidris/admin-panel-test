@@ -23,52 +23,32 @@ class UserSeeder extends Seeder
             File::makeDirectory($path, 0755, true, true);
         }
 
-        // Director
-        $userDirector = User::create([
-            'name' => 'DONI',
-            'email' => 'doni@gmail.com',
-            'nip' => '1234',
-            'password' => bcrypt('123456'),
+        // Admin
+        $userAdmin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@mail.com',
+            'password' => bcrypt('admin123'),
         ]);
-        $userDirector->addRole('director');
-        $avatarDirectorName = 'avatar-' . $userDirector->id . '-' . $userDirector['name'] . '.png';
-        Avatar::create($userDirector->name)->save($path . $avatarDirectorName);
+        $userAdmin->addRole('admin');
+        $avatarAdminName = 'avatar-' . $userAdmin->id . '-' . $userAdmin['name'] . '.png';
+        Avatar::create($userAdmin->name)->save($path . $avatarAdminName);
         Profile::create([
-            'user_id' => $userDirector->id,
-            'avatar' => 'avatars/' . $avatarDirectorName,
-            'jabatan' => "DIREKTUR",
+            'user_id' => $userAdmin->id,
+            'avatar' => 'avatars/' . $avatarAdminName,
         ]);
 
-        // Finance
-        $userFinance = User::create([
-            'name' => 'DONO',
-            'email' => 'dono@gmail.com',
-            'nip' => '1235',
-            'password' => bcrypt('123456'),
+        // Customer
+        $userCustomer = User::create([
+            'name' => 'Customer',
+            'email' => 'customer@mail.com',
+            'password' => bcrypt('customer123'),
         ]);
-        $userFinance->addRole('finance');
-        $avatarFinanceName = 'avatar-' . $userFinance->id . '-' . $userFinance['name'] . '.png';
-        Avatar::create($userFinance->name)->save($path . $avatarFinanceName);
+        $userCustomer->addRole('customer');
+        $avatarCustomerName = 'avatar-' . $userCustomer->id . '-' . $userCustomer['name'] . '.png';
+        Avatar::create($userCustomer->name)->save($path . $avatarCustomerName);
         Profile::create([
-            'user_id' => $userFinance->id,
-            'avatar' => 'avatars/' . $avatarFinanceName,
-            'jabatan' => "FINANCE",
-        ]);
-
-        // Waste Manager
-        $userStaff = User::create([
-            'name' => 'DONA',
-            'email' => 'dona@gmail.com',
-            'nip' => '1236',
-            'password' => bcrypt('123456'),
-        ]);
-        $userStaff->addRole('staff');
-        $avatarStaffName = 'avatar-' . $userStaff->id . '-' . $userStaff['name'] . '.png';
-        Avatar::create($userStaff->name)->save($path . $avatarStaffName);
-        Profile::create([
-            'user_id' => $userStaff->id,
-            'avatar' => 'avatars/' . $avatarStaffName,
-            'jabatan' => "STAFF",
+            'user_id' => $userCustomer->id,
+            'avatar' => 'avatars/' . $avatarCustomerName,
         ]);
     }
 }

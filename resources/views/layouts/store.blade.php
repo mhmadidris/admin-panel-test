@@ -45,20 +45,15 @@
 
     <div class="sidebar sidebar-fixed" id="sidebar">
         <div class="sidebar-brand d-none d-md-flex justify-content-start p-3">
-            @if (Auth::check() && Auth::user()->hasRole('finance'))
+            @if (Auth::check() && Auth::user()->hasRole('admin'))
                 <div class="sidebar-brand-full">
                     <h6 class="m-0 fw-semibold">Dashboard</h6>
-                    <h4 class="m-0 fw-bold">Finance</h4>
+                    <h4 class="m-0 fw-bold">Admin</h4>
                 </div>
-            @elseif (Auth::check() && Auth::user()->hasRole('staff'))
+            @elseif (Auth::check() && Auth::user()->hasRole('customer'))
                 <div class="sidebar-brand-full">
                     <h6 class="m-0 fw-semibold">Dashboard</h6>
-                    <h4 class="m-0 fw-bold">Staff</h4>
-                </div>
-            @else
-                <div class="sidebar-brand-full">
-                    <h6 class="m-0 fw-semibold">Dashboard</h6>
-                    <h4 class="m-0 fw-bold">Director</h4>
+                    <h4 class="m-0 fw-bold">Customer</h4>
                 </div>
             @endif
         </div>

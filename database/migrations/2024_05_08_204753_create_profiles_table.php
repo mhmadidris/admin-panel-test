@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('user_id')->nullable();
             $table->binary('avatar')->nullable();
             $table->string('phone')->nullable();
-            $table->enum('jabatan', ['DIREKTUR', 'FINANCE', 'STAFF'])->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

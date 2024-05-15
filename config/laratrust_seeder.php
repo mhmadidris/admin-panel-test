@@ -12,16 +12,12 @@ return [
     'truncate_tables' => true,
 
     'roles_structure' => [
-        'director' => [
+        'admin' => [
             'users' => 'c,r,u,d',
             'payments' => 'c,r,u,d',
             'profile' => 'r,u',
         ],
-        'finance' => [
-            'payments' => 'c,r,u,d',
-            'profile' => 'r,u',
-        ],
-        'staff' => [
+        'customer' => [
             'payments' => 'c,r,u,d',
             'profile' => 'r,u',
         ],
