@@ -16,6 +16,22 @@ class Catalog extends Component
 
     public $brands, $categories, $units;
 
+    protected $rules = [
+        'catalogName' => 'required|string|max:255',
+        'catalogBrand' => 'required|exists:brands,id',
+        'catalogCategory' => 'required|exists:categories,id',
+        'catalogUnit' => 'required|exists:units,id',
+        'catalogStatus' => 'required|string|in:Bagus,Rusak,Perlu Perbaikan,Dalam Perbaikan',
+    ];
+
+    protected $messages = [
+        'catalogName.required' => 'Nama katalog wajib diisi.',
+        'catalogBrand.required' => 'Merk wajib dipilih.',
+        'catalogCategory.required' => 'Kategori wajib dipilih.',
+        'catalogUnit.required' => 'Satuan wajib dipilih.',
+        'catalogStatus.required' => 'Status wajib dipilih.',
+    ];
+
     public function boot()
     {
         $this->getData();
@@ -38,9 +54,9 @@ class Catalog extends Component
 
     public function saveData()
     {
-        $checkData = $this->checkData();
+        $this->validate();
 
-        if ($checkData) {
+        if ($this->checkData()) {
             $this->dispatch(
                 'showToast',
                 isToast: true,
@@ -78,29 +94,17 @@ class Catalog extends Component
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
+
+            $this->dispatch('close-modal', ['modalId' => 'modalAddCategory']);
         }
 
         $this->dispatch('update-data');
     }
 
-    public function editData($id)
-    {
-        $singleData = ModelsCatalog::select('catalogs.*', 'brands.brand_name', 'categories.category_name', 'units.unit_name', 'units.unit_code')
-            ->where('catalogs.id', $id)
-            ->join('brands', 'catalogs.brand_id', 'brands.id')
-            ->join('categories', 'catalogs.category_id', 'categories.id')
-            ->join('units', 'catalogs.unit_id', 'units.id')
-            ->first();
-
-        $this->catalogName = $singleData->catalog_name;
-        $this->catalogBrand = $singleData->brand_id;
-        $this->catalogCategory = $singleData->category_id;
-        $this->catalogUnit = $singleData->unit_id;
-        $this->catalogStatus = $singleData->catalog_status;
-    }
-
     public function updateData($id)
     {
+        $this->validate();
+
         $category = ModelsCatalog::where('id', $id)
             ->update([
                 'catalog_name' => $this->catalogName,
@@ -124,6 +128,8 @@ class Catalog extends Component
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
+
+            $this->dispatch('close-modal', ['modalId' => 'modalEditCategory' . $id]);
         }
 
         $this->dispatch('update-data');
@@ -157,9 +163,7 @@ class Catalog extends Component
 
     private function checkData()
     {
-        $data = ModelsCatalog::where('catalog_name', $this->catalogName)->exists();
-
-        return $data;
+        return ModelsCatalog::where('catalog_name', $this->catalogName)->exists();
     }
 
     private function clearInput()
