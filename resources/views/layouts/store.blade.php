@@ -150,6 +150,7 @@
 
     {{-- Start CoreUI --}}
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/coreui-chartjs.bundle.min.js') }}"></script>
     {{-- End CoreUI --}}
 
     {{-- Start Sweetalert Scripts --}}

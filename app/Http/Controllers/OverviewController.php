@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\Catalog;
 
 class OverviewController extends Controller
 {
@@ -21,6 +21,16 @@ class OverviewController extends Controller
      */
     public function index()
     {
-        return view('pages.panel.dashboard.dashboard');
+        $catalogCounts = Catalog::selectRaw('catalog_status, COUNT(*) as count')
+            ->whereIn('catalog_status', ['Bagus', 'Rusak', 'Perlu Perbaikan', 'Dalam Perbaikan'])
+            ->groupBy('catalog_status')
+            ->pluck('count', 'catalog_status');
+
+        $bagusCatalogs = $catalogCounts->get('Bagus', 0);
+        $rusakCatalogs = $catalogCounts->get('Rusak', 0);
+        $perluPerbaikanCatalogs = $catalogCounts->get('Perlu Perbaikan', 0);
+        $dalamPerbaikanCatalogs = $catalogCounts->get('Dalam Perbaikan', 0);
+
+        return view('pages.panel.dashboard.dashboard', compact(['bagusCatalogs', 'rusakCatalogs', 'perluPerbaikanCatalogs', 'dalamPerbaikanCatalogs']));
     }
 }

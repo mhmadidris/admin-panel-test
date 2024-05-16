@@ -18,7 +18,9 @@
                                 <div class="fw-semibold m-0">
                                     Bagus
                                 </div>
-                                <div class="mb-0 h4 fw-bold my-1">103</div>
+                                <div class="mb-0 h4 fw-bold my-1">
+                                    {{ $bagusCatalogs }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -34,7 +36,9 @@
                                 <div class="fw-semibold m-0">
                                     Rusak
                                 </div>
-                                <div class="mb-0 h4 fw-bold my-1">4</div>
+                                <div class="mb-0 h4 fw-bold my-1">
+                                    {{ $rusakCatalogs }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -50,7 +54,7 @@
                                 <div class="fw-semibold m-0">
                                     Perlu Perbaikan
                                 </div>
-                                <div class="mb-0 h4 fw-bold my-1">6</div>
+                                <div class="mb-0 h4 fw-bold my-1">{{ $perluPerbaikanCatalogs }}</div>
                             </div>
                         </div>
                     </div>
@@ -66,7 +70,9 @@
                                 <div class="fw-semibold m-0">
                                     Dalam Perbaikan
                                 </div>
-                                <div class="mb-0 h4 fw-bold my-1">1</div>
+                                <div class="mb-0 h4 fw-bold my-1">
+                                    {{ $dalamPerbaikanCatalogs }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,4 +80,33 @@
             </div>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-header">Pie Chart</div>
+        <div class="card-body">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('pieChart').getContext('2d');
+            var pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Bagus', 'Rusak', 'Perlu Perbaikan', 'Dalam Perbaikan'],
+                    datasets: [{
+                        data: [{{ $bagusCatalogs }}, {{ $rusakCatalogs }},
+                            {{ $perluPerbaikanCatalogs }}, {{ $dalamPerbaikanCatalogs }}
+                        ],
+                        backgroundColor: ['#6EC175', '#FF6384', '#36A2EB', '#FFCE56'],
+                        hoverBackgroundColor: ['#6EC175', '#FF6384', '#36A2EB', '#FFCE56']
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+    </script>
 @endsection
