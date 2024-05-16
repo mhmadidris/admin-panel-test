@@ -5,14 +5,14 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title fw-bold m-0" id="modalAddCategoryLabel">Tambah Kategori</h5>
-                <button type="button" class="btn border-0" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fa-solid fa-xmark fa-lg"></i>
                 </button>
             </div>
             <div class="modal-body d-flex flex-column gap-3">
                 <div class="d-flex flex-column w-100">
                     <label class="pb-1 h6 fw-bold" for="category_name">Nama Kategori</label>
-                    <input type="text" class="form-control border-0" id="category_name" wire:model="categoryName"
+                    <input type="text" class="form-control" id="category_name" wire:model="categoryName"
                         placeholder="e.g: Meja / Kursi / Lemari" autocomplete="off">
                 </div>
             </div>
@@ -32,14 +32,14 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold m-0" id="modalEditCategoryLabel">Edit Kategori</h5>
-                    <button type="button" class="btn border-0" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa-solid fa-xmark fa-lg"></i>
                     </button>
                 </div>
                 <div class="modal-body d-flex flex-column gap-3">
                     <div class="d-flex flex-column w-100">
                         <label class="pb-1 h6 fw-bold" for="category_name">Nama Kategori</label>
-                        <input type="text" class="form-control border-0" id="category_name" name="category_name"
+                        <input type="text" class="form-control" id="category_name" name="category_name"
                             placeholder="e.g: Meja / Kursi / Lemari" wire:model="categoryName"
                             value="{{ $category->category_name }}" autocomplete="off">
                     </div>

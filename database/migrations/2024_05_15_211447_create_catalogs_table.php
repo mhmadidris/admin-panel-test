@@ -15,12 +15,17 @@ return new class extends Migration
             $table->uuid('id')->primary()->unique();
             $table->binary('image');
             $table->string('name');
-            $table->string('brand');
             $table->enum('status', ['bagus', 'rusak', 'perlu_perbaikan', 'dalam_perbaikan']);
+            $table->uuid('brand_id');
             $table->uuid('category_id');
             $table->uuid('unit_id');
             $table->timestamps();
 
+            $table->foreign('brand_id')
+                ->references('id')
+                ->on('brands')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')

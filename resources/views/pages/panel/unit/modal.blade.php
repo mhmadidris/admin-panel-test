@@ -5,21 +5,21 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title fw-bold m-0" id="modalAddUnitLabel">Tambah Satuan</h5>
-                <button type="button" class="btn border-0" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fa-solid fa-xmark fa-lg"></i>
                 </button>
             </div>
             <div class="modal-body d-flex flex-column gap-3">
                 <div class="d-flex flex-column w-100">
                     <label class="pb-1 h6 fw-bold" for="unit_code">Kode Satuan</label>
-                    <input type="text" class="form-control border-0" id="unit_code" wire:model="unitCode"
+                    <input type="text" class="form-control" id="unit_code" wire:model="unitCode"
                         placeholder="e.g: XXX-XXX-XXX" autocomplete="off">
                 </div>
 
                 <div class="d-flex flex-column w-100">
                     <label class="pb-1 h6 fw-bold" for="unit_name">Nama Satuan</label>
-                    <input type="text" class="form-control border-0" id="unit_name" wire:model="unitName"
-                        placeholder="e.g: Meja / Kursi / Lemari" autocomplete="off">
+                    <input type="text" class="form-control" id="unit_name" wire:model="unitName"
+                        placeholder="e.g: Satuan 1" autocomplete="off">
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -38,22 +38,22 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold m-0" id="modalEditUnitLabel">Edit Satuan</h5>
-                    <button type="button" class="btn border-0" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa-solid fa-xmark fa-lg"></i>
                     </button>
                 </div>
                 <div class="modal-body d-flex flex-column gap-3">
                     <div class="d-flex flex-column w-100">
                         <label class="pb-1 h6 fw-bold" for="unit_code">Kode Satuan</label>
-                        <input type="text" class="form-control border-0" id="unit_code" wire:model="unitCode"
+                        <input type="text" class="form-control" id="unit_code" wire:model="unitCode"
                             placeholder="e.g: XXX-XXX-XXX" autocomplete="off">
                     </div>
 
                     <div class="d-flex flex-column w-100">
                         <label class="pb-1 h6 fw-bold" for="unit_name">Nama Satuan</label>
-                        <input type="text" class="form-control border-0" id="unit_name" name="unit_name"
-                            placeholder="e.g: Meja / Kursi / Lemari" wire:model="unitName"
-                            value="{{ $item->unit_name }}" autocomplete="off">
+                        <input type="text" class="form-control" id="unit_name" name="unit_name"
+                            placeholder="e.g: Satuan 1" wire:model="unitName" value="{{ $item->unit_name }}"
+                            autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer border-0">
