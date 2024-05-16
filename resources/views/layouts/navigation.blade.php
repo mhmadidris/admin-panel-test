@@ -8,8 +8,8 @@
 
     <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="nav-icon fa-solid fa-money-bill-1-wave"></i>
-            {{ __('Reimburs') }}
+            <i class="nav-icon fa-solid fa-rectangle-list"></i>
+            {{ __('Catalog') }}
         </a>
     </li>
 
