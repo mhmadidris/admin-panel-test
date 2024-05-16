@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OverviewController;
 use App\Http\Controllers\UnitController;
@@ -26,8 +28,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'web'], function () {
 
     # Admin Route
     Route::resource('dashboard', OverviewController::class);
+    Route::resource('brand', BrandController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('unit', UnitController::class);
+    Route::resource('catalog', CatalogController::class);
 
     // PHP ARTISAN
     Route::get('/storage-link', function () {
