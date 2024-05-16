@@ -19,7 +19,7 @@ class Category extends Component
     #[On('update-data')]
     public function getData()
     {
-        $this->categories = ModelsCategory::all();
+        $this->categories = ModelsCategory::orderBy('categories.created_at', 'DESC')->get();
     }
 
     public function saveData()

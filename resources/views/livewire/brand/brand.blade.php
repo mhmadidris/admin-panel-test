@@ -16,7 +16,7 @@
     </div>
 
     @if ($brands->isNotEmpty())
-        <table class="table table-borderless">
+        <table class="table table-borderless table-responsive">
             <thead>
                 <tr class="text-center">
                     <th class="text-center text-black" scope="col">#</th>

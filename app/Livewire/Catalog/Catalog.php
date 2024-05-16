@@ -2,14 +2,19 @@
 
 namespace App\Livewire\Catalog;
 
+use App\Models\Brand;
 use App\Models\Catalog as ModelsCatalog;
+use App\Models\Category;
+use App\Models\Unit;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Catalog extends Component
 {
     public $catalogs;
-    public $unitName, $unitCode;
+    public $catalogName, $catalogBrand, $catalogCategory, $catalogUnit, $catalogStatus;
+
+    public $brands, $categories, $units;
 
     public function boot()
     {
@@ -19,7 +24,16 @@ class Catalog extends Component
     #[On('update-data')]
     public function getData()
     {
-        $this->catalogs = ModelsCatalog::all();
+        $this->brands = Brand::all();
+        $this->categories = Category::all();
+        $this->units = Unit::all();
+
+        $this->catalogs = ModelsCatalog::select('catalogs.*', 'brands.brand_name', 'categories.category_name', 'units.unit_name', 'units.unit_code')
+            ->join('brands', 'catalogs.brand_id', 'brands.id')
+            ->join('categories', 'catalogs.category_id', 'categories.id')
+            ->join('units', 'catalogs.unit_id', 'units.id')
+            ->orderBy('catalogs.created_at', 'DESC')
+            ->get();
     }
 
     public function saveData()
@@ -34,7 +48,7 @@ class Catalog extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "info",
-                message: "Kode satuan sudah ada",
+                message: "Kode katalog sudah ada",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -43,8 +57,11 @@ class Catalog extends Component
         }
 
         $category = ModelsCatalog::create([
-            'unit_name' => $this->unitName,
-            'unit_code' => $this->unitCode,
+            'catalog_name' => $this->catalogName,
+            'brand_id' => $this->catalogBrand,
+            'category_id' => $this->catalogCategory,
+            'unit_id' => $this->catalogUnit,
+            'catalog_status' => $this->catalogStatus,
         ]);
 
         if ($category) {
@@ -57,7 +74,7 @@ class Catalog extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "success",
-                message: "Berhasil menambah satuan",
+                message: "Berhasil menambah katalog",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -68,18 +85,30 @@ class Catalog extends Component
 
     public function editData($id)
     {
-        $singleData = ModelsCatalog::where('id', $id)->first();
+        $singleData = ModelsCatalog::select('catalogs.*', 'brands.brand_name', 'categories.category_name', 'units.unit_name', 'units.unit_code')
+            ->where('catalogs.id', $id)
+            ->join('brands', 'catalogs.brand_id', 'brands.id')
+            ->join('categories', 'catalogs.category_id', 'categories.id')
+            ->join('units', 'catalogs.unit_id', 'units.id')
+            ->first();
 
-        $this->unitName = $singleData->unit_name;
-        $this->unitCode = $singleData->unit_code;
+        $this->catalogName = $singleData->catalog_name;
+        $this->catalogBrand = $singleData->brand_id;
+        $this->catalogCategory = $singleData->category_id;
+        $this->catalogUnit = $singleData->unit_id;
+        $this->catalogStatus = $singleData->catalog_status;
     }
 
     public function updateData($id)
     {
-        $category = ModelsCatalog::where('id', $id)->update([
-            'unit_name' => $this->unitName,
-            'unit_code' => $this->unitCode,
-        ]);
+        $category = ModelsCatalog::where('id', $id)
+            ->update([
+                'catalog_name' => $this->catalogName,
+                'brand_id' => $this->catalogBrand,
+                'category_id' => $this->catalogCategory,
+                'unit_id' => $this->catalogUnit,
+                'catalog_status' => $this->catalogStatus,
+            ]);
 
         if ($category) {
             $this->clearInput();
@@ -91,7 +120,7 @@ class Catalog extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "success",
-                message: "Berhasil mengubah satuan",
+                message: "Berhasil mengubah katalog",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -112,7 +141,7 @@ class Catalog extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "success",
-                message: "Berhasil menghapus satuan",
+                message: "Berhasil menghapus katalog",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -128,14 +157,17 @@ class Catalog extends Component
 
     private function checkData()
     {
-        $data = ModelsCatalog::where('unit_code', $this->unitCode)->exists();
+        $data = ModelsCatalog::where('catalog_name', $this->catalogName)->exists();
 
         return $data;
     }
 
     private function clearInput()
     {
-        $this->unitName = '';
-        $this->unitCode = '';
+        $this->catalogName = '';
+        $this->catalogBrand = '';
+        $this->catalogCategory = '';
+        $this->catalogUnit = '';
+        $this->catalogStatus = '';
     }
 }

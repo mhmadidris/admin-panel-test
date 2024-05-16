@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('catalogs', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-            $table->binary('image');
-            $table->string('name');
-            $table->enum('status', ['bagus', 'rusak', 'perlu_perbaikan', 'dalam_perbaikan']);
+            $table->string('catalog_name');
+            $table->enum('catalog_status', ['Bagus', 'Rusak', 'Perlu Perbaikan', 'Dalam Perbaikan']);
             $table->uuid('brand_id');
             $table->uuid('category_id');
             $table->uuid('unit_id');

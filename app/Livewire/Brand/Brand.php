@@ -19,7 +19,7 @@ class Brand extends Component
     #[On('update-data')]
     public function getData()
     {
-        $this->brands = ModelsBrand::all();
+        $this->brands = ModelsBrand::orderBy('brands.created_at', 'DESC')->get();
     }
 
     public function saveData()

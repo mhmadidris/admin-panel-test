@@ -16,11 +16,15 @@
     </div>
 
     @if ($catalogs->isNotEmpty())
-        <table class="table table-borderless">
+        <table class="table table-borderless table-responsive">
             <thead>
                 <tr class="text-center">
                     <th class="text-center text-black" scope="col">#</th>
                     <th class="text-black" scope="col">Nama Katalog</th>
+                    <th class="text-black" scope="col">Merk</th>
+                    <th class="text-black" scope="col">Kategori</th>
+                    <th class="text-black" scope="col">Satuan</th>
+                    <th class="text-black" scope="col">Status</th>
                     <th class="text-center text-black" scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -28,17 +32,21 @@
                 @php
                     $i = 1;
                 @endphp
-                @foreach ($catalogs as $category)
+                @foreach ($catalogs as $catalog)
                     <tr class="text-center">
                         <th class="text-center text-black" scope="row">{{ $i++ }}</th>
-                        <td class="text-black">{{ $category->category_name }}</td>
+                        <td class="text-black">{{ $catalog->catalog_name }}</td>
+                        <td class="text-black">{{ $catalog->brand_name }}</td>
+                        <td class="text-black">{{ $catalog->category_name }}</td>
+                        <td class="text-black">{{ $catalog->unit_code . ' - ' . $catalog->unit_name }}</td>
+                        <td class="text-black">{{ $catalog->catalog_status }}</td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center align-content-center align-items-center">
                                 <button class="btn border-0" style="color: #FF4040;" data-bs-toggle="modal"
-                                    wire:click="editData('{{ $category->id }}')"
-                                    data-bs-target="#modalEditCategory{{ $category->id }}">Edit</button>
+                                    wire:click="editData('{{ $catalog->id }}')"
+                                    data-bs-target="#modalEditCategory{{ $catalog->id }}">Edit</button>
 
-                                <button class="btn border-0" wire:click="deleteData('{{ $category->id }}')"
+                                <button class="btn border-0" wire:click="deleteData('{{ $catalog->id }}')"
                                     style="color: #FF4040;" type="submit">Hapus</button>
                             </div>
                         </td>

@@ -19,7 +19,7 @@ class Unit extends Component
     #[On('update-data')]
     public function getData()
     {
-        $this->units = ModelsUnit::all();
+        $this->units = ModelsUnit::orderBy('units.created_at', 'DESC')->get();
     }
 
     public function saveData()
