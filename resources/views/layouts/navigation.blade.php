@@ -19,7 +19,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('unit.index', ['locale' => app()->getLocale()]) }}">
                     {{ __('Satuan') }}
                 </a>
             </li>

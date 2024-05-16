@@ -12,7 +12,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.panel.unit.index');
     }
 
     /**

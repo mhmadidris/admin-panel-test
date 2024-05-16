@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OverviewController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'web'], function () {
     # Admin Route
     Route::resource('dashboard', OverviewController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('unit', UnitController::class);
 
     // PHP ARTISAN
     Route::get('/storage-link', function () {

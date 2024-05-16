@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Category;
+namespace App\Livewire\Unit;
 
-use App\Models\Category as ModelsCategory;
+use App\Models\Unit as ModelsUnit;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Category extends Component
+class Unit extends Component
 {
-    public $categories;
-    public $categoryName;
+    public $units;
+    public $unitName, $unitCode;
 
     public function boot()
     {
@@ -19,7 +19,7 @@ class Category extends Component
     #[On('update-data')]
     public function getData()
     {
-        $this->categories = ModelsCategory::all();
+        $this->units = ModelsUnit::all();
     }
 
     public function saveData()
@@ -34,7 +34,7 @@ class Category extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "info",
-                message: "Nama kategori sudah ada",
+                message: "Kode satuan sudah ada",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -42,8 +42,9 @@ class Category extends Component
             return;
         }
 
-        $category = ModelsCategory::create([
-            'category_name' => $this->categoryName,
+        $category = ModelsUnit::create([
+            'unit_name' => $this->unitName,
+            'unit_code' => $this->unitCode,
         ]);
 
         if ($category) {
@@ -56,7 +57,7 @@ class Category extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "success",
-                message: "Berhasil menambah kategori",
+                message: "Berhasil menambah satuan",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -67,15 +68,17 @@ class Category extends Component
 
     public function editData($id)
     {
-        $singleData = ModelsCategory::where('id', $id)->first();
+        $singleData = ModelsUnit::where('id', $id)->first();
 
-        $this->categoryName = $singleData->category_name;
+        $this->unitName = $singleData->unit_name;
+        $this->unitCode = $singleData->unit_code;
     }
 
     public function updateData($id)
     {
-        $category = ModelsCategory::where('id', $id)->update([
-            'category_name' => $this->categoryName,
+        $category = ModelsUnit::where('id', $id)->update([
+            'unit_name' => $this->unitName,
+            'unit_code' => $this->unitCode,
         ]);
 
         if ($category) {
@@ -88,7 +91,7 @@ class Category extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "success",
-                message: "Berhasil mengubah kategori",
+                message: "Berhasil mengubah satuan",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -99,7 +102,7 @@ class Category extends Component
 
     public function deleteData($id)
     {
-        $category = ModelsCategory::where('id', $id)->delete();
+        $category = ModelsUnit::where('id', $id)->delete();
 
         if ($category) {
             $this->dispatch(
@@ -109,7 +112,7 @@ class Category extends Component
                 isShowConfirmButton: false,
                 isShowCloseButton: true,
                 icon: "success",
-                message: "Berhasil menghapus kategori",
+                message: "Berhasil menghapus satuan",
                 timerDuration: 2500,
                 isShowTimerProgressBar: true
             );
@@ -120,18 +123,19 @@ class Category extends Component
 
     public function render()
     {
-        return view('livewire.category.category');
+        return view('livewire.unit.unit');
     }
 
     private function checkData()
     {
-        $data = ModelsCategory::where('category_name', $this->categoryName)->exists();
+        $data = ModelsUnit::where('unit_code', $this->unitCode)->exists();
 
         return $data;
     }
 
     private function clearInput()
     {
-        $this->categoryName = '';
+        $this->unitName = '';
+        $this->unitCode = '';
     }
 }
