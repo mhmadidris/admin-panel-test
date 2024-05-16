@@ -1,5 +1,4 @@
 import "./bootstrap";
-// import "./pusher";
 
 // Bootstrap
 import "bootstrap/dist/js/bootstrap";

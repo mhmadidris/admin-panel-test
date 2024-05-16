@@ -6,9 +6,29 @@
         </a>
     </li>
 
+    <li class="nav-group" aria-expanded="false">
+        <a class="nav-link nav-group-toggle text-white" href="#">
+            <i class="nav-icon fas fa-tags"></i>
+            Atribut
+        </a>
+        <ul class="nav-group-items">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('category.index', ['locale' => app()->getLocale()]) }}">
+                    {{ __('Kategori') }}
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    {{ __('Satuan') }}
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="nav-icon fa-solid fa-rectangle-list"></i>
+            <i class="nav-icon fa-solid fa-bag-shopping"></i>
             {{ __('Catalog') }}
         </a>
     </li>
